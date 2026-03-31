@@ -1,10 +1,10 @@
 import { useContext } from "react";
 import { AppContext } from "../context/AppContext";
 import { useNavigate } from "react-router-dom";
-import biryaniImg from "../assets/Biryani.jpg";
-import friedRiceImg from "../assets/Burger.jpg";
-import chickenImg from "../assets/Pizza.jpg";
-import Layout from "../components/Layout";
+// import biryaniImg from "../assets/Biryani.jpg";
+// import friedRiceImg from "../assets/Burger.jpg";
+// import chickenImg from "../assets/Pizza.jpg";
+// import Layout from "../components/Layout";
 import { useEffect, useState } from "react";
 
 export default function Menu() {
