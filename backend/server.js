@@ -37,6 +37,14 @@ app.post("/save-order", (req, res) => {
   );
 });
 
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log("Server running on", PORT);
+});
+
+const cors = require("cors");
+app.use(cors());
+
 /* Get Report */
 app.get("/report", (req, res) => {
   db.all(
