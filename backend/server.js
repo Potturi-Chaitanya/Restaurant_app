@@ -42,9 +42,6 @@ app.listen(PORT, () => {
   console.log("Server running on", PORT);
 });
 
-const cors = require("cors");
-app.use(cors());
-
 /* Get Report */
 app.get("/report", (req, res) => {
   db.all(
