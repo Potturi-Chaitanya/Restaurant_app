@@ -11,17 +11,20 @@ export default function Layout({ children, cart, table, clearCart }) {
     }
 
     try {
-      const res = await fetch("http://localhost:5000/save-order", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const res = await fetch(
+        "https://your-backend.onrender.com/api/save-order",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            table,
+            type: table === "Parcel" ? "parcel" : "dine",
+            cart,
+          }),
         },
-        body: JSON.stringify({
-          table,
-          type: table === "Parcel" ? "parcel" : "dine",
-          cart,
-        }),
-      });
+      );
 
       const data = await res.json();
 

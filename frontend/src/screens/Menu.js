@@ -15,7 +15,7 @@ export default function Menu() {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/items")
+    fetch("https://your-backend.onrender.com/api/items")
       .then((res) => res.json())
       .then((data) => setItems(data));
   }, []);
