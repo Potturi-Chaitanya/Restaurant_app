@@ -13,7 +13,7 @@ export default function Login() {
 
   const handleLogin = () => {
     if (role === "admin") {
-      if (username === "admin" && password === "1234") {
+      if (username === "admin" && password === "admin@123") {
         localStorage.setItem("admin", "true");
         navigate("/admin");
       } else {

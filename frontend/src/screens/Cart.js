@@ -10,20 +10,17 @@ export default function Cart() {
 
   const checkout = async () => {
     try {
-      const res = await fetch(
-        "https://your-backend-url.onrender.com/save-order",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            table,
-            type: table === "Parcel" ? "parcel" : "dine",
-            cart,
-          }),
+      const res = await fetch("http://localhost:5050/save-order", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-      );
+        body: JSON.stringify({
+          table,
+          type: table === "Parcel" ? "parcel" : "dine",
+          cart,
+        }),
+      });
 
       const data = await res.json();
 

@@ -9,7 +9,7 @@ export default function Dashboard() {
 
   // ✅ Fetch tables safely
   useEffect(() => {
-    fetch("https://your-backend.onrender.com/api/tables")
+    fetch("http://localhost:5050/tables")
       .then((res) => res.json())
       .then((data) => {
         console.log("Tables API:", data);

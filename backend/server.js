@@ -2,11 +2,69 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const db = require("./db");
-
+console.log("🔥 THIS IS THE ACTIVE SERVER FILE");
 const app = express();
 
 app.use(cors());
 app.use(bodyParser.json());
+
+db.serialize(() => {
+  // Tables
+  db.run(`
+    CREATE TABLE IF NOT EXISTS tables (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      table_number INTEGER,
+      is_active INTEGER DEFAULT 1
+    )
+  `);
+
+  db.run(`
+    CREATE TABLE IF NOT EXISTS items (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT,
+      price INTEGER,
+      is_available INTEGER DEFAULT 1
+    )
+  `);
+
+  db.run(`
+    CREATE TABLE IF NOT EXISTS bills (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      table_number INTEGER,
+      type TEXT
+    )
+  `);
+
+  db.run(`
+    CREATE TABLE IF NOT EXISTS cart_items (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      bill_id INTEGER,
+      item_name TEXT,
+      price INTEGER,
+      quantity INTEGER
+    )
+  `);
+
+  db.run(`
+    CREATE TABLE IF NOT EXISTS orders (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      total_amount INTEGER
+    )
+  `);
+
+  db.run(`
+    CREATE TABLE IF NOT EXISTS order_items (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      item_name TEXT,
+      qty INTEGER
+    )
+  `);
+});
+
+app.use((req, res, next) => {
+  console.log("👉 Incoming request:", req.method, req.url);
+  next();
+});
 
 app.get("/", (req, res) => {
   res.send("Server is running");
@@ -37,11 +95,6 @@ app.post("/save-order", (req, res) => {
   );
 });
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log("Server running on", PORT);
-});
-
 /* Get Report */
 app.get("/report", (req, res) => {
   db.all(
@@ -57,9 +110,9 @@ app.get("/report", (req, res) => {
   );
 });
 
-app.listen(5000, () => {
-  console.log("✅ Server running on http://localhost:5000");
-});
+// app.listen(5000, () => {
+//   console.log("✅ Server running on http://localhost:5000");
+// });
 
 // Add table
 app.post("/add-table", (req, res) => {
@@ -78,7 +131,7 @@ app.post("/add-table", (req, res) => {
 // Get tables
 app.get("/tables", (req, res) => {
   db.all(
-    "SELECT * FROM tables ORDER BY CAST(table_number AS INTEGER)",
+    "SELECT * FROM tables WHERE is_active = 1 ORDER BY CAST(table_number AS INTEGER)",
     (err, rows) => {
       if (err) return res.status(500).send(err);
       res.send(rows); // MUST be array
@@ -229,4 +282,9 @@ app.get("/api/reports", (req, res) => {
       );
     },
   );
+});
+
+const PORT = process.env.PORT || 5050;
+app.listen(PORT, () => {
+  console.log(`✅ Server running on http://localhost:${PORT}`);
 });

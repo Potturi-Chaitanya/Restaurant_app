@@ -13,14 +13,14 @@ export default function Admin() {
 
   // ✅ Load Tables
   const loadTables = () => {
-    fetch("https://your-backend.onrender.com/api/tables")
+    fetch("http://localhost:5050/tables")
       .then((res) => res.json())
       .then((data) => setTables(data));
   };
 
   // ✅ Load Items
   const loadItems = () => {
-    fetch("https://your-backend.onrender.com/api/items")
+    fetch("http://localhost:5050/items")
       .then((res) => res.json())
       .then((data) => setItems(data));
   };
@@ -32,7 +32,7 @@ export default function Admin() {
 
   // ✅ Create Tables (Smart Logic)
   const addTables = async () => {
-    await fetch("https://your-backend.onrender.com/api/add-multiple-tables", {
+    await fetch("http://localhost:5050/add-multiple-tables", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -46,7 +46,7 @@ export default function Admin() {
 
   // ✅ Toggle Table
   const toggleTable = async (t) => {
-    await fetch("https://your-backend.onrender.com/api/toggle-table", {
+    await fetch("http://localhost:5050/toggle-table", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -62,7 +62,7 @@ export default function Admin() {
 
   // ✅ Add Item
   const addItem = async () => {
-    await fetch("https://your-backend.onrender.com/api/add-item", {
+    await fetch("http://localhost:5050/add-item", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -79,7 +79,7 @@ export default function Admin() {
 
   // ✅ Toggle Item
   const toggleItem = async (i) => {
-    await fetch("https://your-backend.onrender.com/api/toggle-item", {
+    await fetch("http://localhost:5050/toggle-item", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
